@@ -10,9 +10,14 @@ mv ~/vim ~/.vim     # change the folder name
 cd cmake-3.5.1
 ./bootstrap && make && sudo make install
 
-echo "complete!"
-
 # put monokai.xml into the qt-creator config folder
 if [ -d ~/.config/QtProject/qtcreator/styles ]; then 
     cp monokai.xml ~/.config/QtProject/qtcreator/styles/
 fi
+
+# install sublime_text_3
+sudo tar -vxjf sublime_text_3_build_3103_x64.tar.bz2 -C /opt
+sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime3
+sudo cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications/
+
+echo "complete!"

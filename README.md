@@ -12,6 +12,7 @@ This will do the following things:
 1. update vim setttings  
 2. install CMake 3.5.1  
 3. (If QtCreator has been installed) After installing qt creator, put monokai.xml in ~/.config/QtProject/qtcreator/styles/ and select scheme in Text Editor preferences.  
+4. install sublime text 3 (build_3103)  
 
 Contact
 ----------------
