@@ -21,6 +21,8 @@ cd cmake-3.5.1
 # put monokai.xml into the qt-creator config folder
 if [ -d ~/.config/QtProject/qtcreator/styles ]; then 
     cp monokai.xml ~/.config/QtProject/qtcreator/styles/
+    cp dusk.xml ~/.config/QtProject/qtcreator/styles/
+    cp twilight.xml ~/.config/QtProject/qtcreator/styles/
 fi
 
 # install sublime_text_3
