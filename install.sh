@@ -30,10 +30,13 @@ sudo tar -vxjf sublime_text_3_build_3103_x64.tar.bz2 -C /opt
 sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime3
 sudo cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications/
 
-# set up bash
+# set up bash, install meshlab on linux
 if [[ $platform == 'linux' ]]; then
 	cp bash/bashrc_centos ~/.bashrc
 	cp bash/bash_profile_centos ~/.bash_profile
+    cd meshlab/src/external && qmake-qt4 -recursive external.pro && make
+    cd .. && qmake-qt4 -recursive meshlab_full.pro && make
+    # the compiled binary is in the distrib folder
 fi
 
 echo "complete!"
