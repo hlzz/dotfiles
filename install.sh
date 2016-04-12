@@ -52,18 +52,27 @@ cd .. && echo "finish develop settings"
 ################################################
 # 	Working environments settings		       #
 ################################################
-cd graphics
-# install meshlab on linux
+#######Install packages related to Graphics#########
 if [[ $platform == 'linux' ]]; then
+    cd graphics
+    # install meshlab on linux
 	echo "Installing Meshlab"    
 	cd meshlab/src/external && qmake-qt4 -recursive external.pro && make
 	cd .. && qmake-qt4 -recursive meshlab_full.pro && make
-    echo "The compiled meshlab binary is in the distrib folder"
+    cd ../.. && echo "The compiled meshlab binary is in the distrib folder"
+    # install VTK-7.0.0
+    cd VTK-7.0.0/
+    mkdir build
+    cmake .. && make -j4 && sudo make install
+    cd ../.. && echo "finish graphics settings"
+
+#######Install scientific packages#########
+    cd science
+    # install igraph, the network analysis library
+    cd igraph 
+    ./confgiure && make && sudo make install
+    cd ..
+    cd .. && echo "finish science package settings"
 fi
-# install VTK-7.0.0
-cd VTK-7.0.0/
-mkdir build
-cmake .. && make -j4 && sudo make install
-cd .. && echo "finish graphics settings"
 
 echo "complete!"
