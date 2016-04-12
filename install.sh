@@ -67,7 +67,14 @@ if [[ $platform == 'linux' ]]; then
     # install igraph, the network analysis library
     cd igraph-0.7.1
     ./configure && make && sudo make install
-    cd ../.. && echo "finish science package settings"
+    # install ceres-solver
+    # (TODO: tianwei) this is not complete installation
+    # may need other dependencies such as eigen, cxsparse,...
+    cd ../ceres-solver
+    mkdir build && cd build
+    cmake .. && make -j4 && sudo make install
+    cd ../..    # back to science
+    cd .. && echo "finish science package settings"
 #######Install packages related to Graphics#########
     cd graphics
     # install meshlab on linux
@@ -79,7 +86,11 @@ if [[ $platform == 'linux' ]]; then
     cd VTK-7.0.0/
     mkdir build && cd build
     cmake .. && make -j4 && sudo make install
-    cd ../../.. && echo "finish graphics settings"
+    cd ../../cgal    # cd into cgal
+    mkdir build && cd build
+    cmake .. && make -j4 && sudo make install
+    cd ../..        # back to graphics
+    cd .. && echo "finish graphics settings"
 fi
 
 echo "complete!"
