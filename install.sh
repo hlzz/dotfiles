@@ -1,7 +1,8 @@
 #!/bin/sh
 # Tianwei Shen <shentianweipku@gmail.com>
 
-set -e # exit when encountering the first error
+set -e	# exit when encountering the first error
+set -u 	# don't use uninitialised variables
 
 platform='unknown'
 unamestr=`uname`
@@ -12,7 +13,7 @@ elif [[ "$unamestr" == 'FreeBSD' ]]; then
 fi
 
 #############################################
-#			Editor settings			       	#
+#           Editor settings                 #
 #############################################
 # vim configuration
 cd editor
@@ -42,7 +43,7 @@ fi
 cd .. && echo "finish editor settings"
 
 #############################################
-# 		Develop settings					#
+#          Develop settings                 #
 #############################################
 cd dev
 # install the cmake 3.5.1
@@ -57,9 +58,9 @@ if [[ $platform == 'linux' ]]; then
 fi
 cd .. && echo "finish develop settings"
 
-################################################
-# 	Working environments settings		       #
-################################################
+#################################################
+#   Working environments settings               #
+#################################################
 if [[ $platform == 'linux' ]]; then
 #######Install scientific packages#########
     cd science
