@@ -1,6 +1,8 @@
 #!/bin/sh
 # Tianwei Shen <shentianweipku@gmail.com>
 
+set -e # exit when encountering the first error
+
 platform='unknown'
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
@@ -31,7 +33,12 @@ echo "Installing Sublime Text 3"
 sudo tar -vxjf sublime_text_3_build_3103_x64.tar.bz2 -C /opt
 sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime3
 sudo cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications/
-cp Package\ Control.sublime-package ~/.config/sublime-text-3/Installed\ Packages/
+if [ -d ~/.config/sublime-text-3/Installed\ Packages ]; then
+    cp Package\ Control.sublime-package ~/.config/sublime-text-3/Installed\ Packages/
+else
+    mkdir ~/.config/sublime-text-3 && mkdir ~/.config/sublime-text-3/Installed\ Packages
+    cp Package\ Control.sublime-package ~/.config/sublime-text-3/Installed\ Packages/
+fi
 cd .. && echo "finish editor settings"
 
 #############################################
@@ -41,6 +48,7 @@ cd dev
 # install the cmake 3.5.1
 cd cmake-3.5.1
 ./bootstrap && make && sudo make install
+cd ..
 
 # set up bash
 if [[ $platform == 'linux' ]]; then
@@ -52,8 +60,14 @@ cd .. && echo "finish develop settings"
 ################################################
 # 	Working environments settings		       #
 ################################################
-#######Install packages related to Graphics#########
 if [[ $platform == 'linux' ]]; then
+#######Install scientific packages#########
+    cd science
+    # install igraph, the network analysis library
+    cd igraph-0.7.1
+    ./configure && make && sudo make install
+    cd ../.. && echo "finish science package settings"
+#######Install packages related to Graphics#########
     cd graphics
     # install meshlab on linux
 	echo "Installing Meshlab"    
@@ -62,17 +76,9 @@ if [[ $platform == 'linux' ]]; then
     cd ../.. && echo "The compiled meshlab binary is in the distrib folder"
     # install VTK-7.0.0
     cd VTK-7.0.0/
-    mkdir build
+    mkdir build && cd build
     cmake .. && make -j4 && sudo make install
-    cd ../.. && echo "finish graphics settings"
-
-#######Install scientific packages#########
-    cd science
-    # install igraph, the network analysis library
-    cd igraph 
-    ./confgiure && make && sudo make install
-    cd ..
-    cd .. && echo "finish science package settings"
+    cd ../../.. && echo "finish graphics settings"
 fi
 
 echo "complete!"
