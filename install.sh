@@ -34,10 +34,17 @@ if [[ $platform == 'linux' ]]; then
 	cp bash/bashrc_centos ~/.bashrc
 	cp bash/bash_profile_centos ~/.bash_profile
 fi
-# install the system profiler on linux
+
 if [[ $platform == 'linux' ]]; then
+# install the system profiler on linux
     cd netdata
     sudo ./netdata-installer.sh
+    cd ..
+# install valgrind on linux
+    cd valgrind-3.11.0
+    ./autogen.sh
+    ./configure
+    make && sudo make install
     cd ..
 fi
 cd .. && echo "finish develop settings"
