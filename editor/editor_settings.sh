@@ -13,7 +13,7 @@ if [ -d ~/.config/QtProject/qtcreator/styles ]; then
     cp dusk.xml ~/.config/QtProject/qtcreator/styles/
     cp twilight.xml ~/.config/QtProject/qtcreator/styles/
 else
-    if [-d ~/.config ]; then 
+    if [ -d ~/.config ]; then 
         mkdir ~/.config/QtProject
         mkdir ~/.config/QtProject/qtcreator
         mkdir ~/.config/QtProject/qtcreator/styles
